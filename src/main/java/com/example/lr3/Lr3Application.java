@@ -1,8 +1,10 @@
 package com.example.lr3;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 
@@ -12,7 +14,7 @@ public class Lr3Application {
     public static void main(String[] args) throws Ex {
         //      SpringApplication.run(Lr3Application.class, args);
         Car lada = new Car();
-        Car bmw = new Car("bmw", 1500000, new double[]{200.0, 230.0});
+        Car bmw = new Car("bmw", 1500000.0, new double[]{200.0, 230.0});
         System.out.println(lada);
         System.out.println(bmw);
         System.out.println("Проверка equals 1 и 2 машин: " + bmw.equals(lada));
@@ -20,12 +22,12 @@ public class Lr3Application {
         System.out.println("Разность цен: " + bmw.DifPrice(lada));
         System.out.println("hashcode 1 машины: " + lada.hashCode());
         System.out.println("hashcode 2 машины: " + bmw.hashCode());
-        Car[] cars = new Car[6];
-        int i = 0;
-        cars[i] = lada;
-        i++;
-        cars[i] = bmw;
-        i++;
+        List<Car> cars = new ArrayList<>();
+
+        cars.add(lada);
+
+        cars.add(bmw);
+
         Scanner in = new Scanner(System.in);
         int num = 0;
         while (num != 9) {
@@ -34,42 +36,51 @@ public class Lr3Application {
                     1.Добавить машину
                     2.Вывести список машин
                     3.Сломать программу
+                    4.4 ЛР
+                    5.Сломать программу2
                     9.Завершение работы""");
             num = in.nextInt();
             switch (num) {
                 case 1 -> {
-                    cars[i] = new Car(i);
-                    i++;
+
+                    cars.add(new Car(cars.size()));
+
 
                 }
                 case 2 -> {
 
                     for (Car car : cars) {
-                        try {
-                            System.out.println(car);
-                        } catch (IndexOutOfBoundsException e) {
-                            System.out.println(e.getMessage() + "Номер машины вне массива");
-                        } catch (NullPointerException e) {
-                            System.out.println(e.getMessage() + "Номер машины за пределами массива");
-                        }
-
+                        System.out.println(car);
                     }
 
                 }
+
+
                 case 3 -> {
 
-                    int price;
-                    price = 10;
-                    if (price < 100) throw new Ex("Цена не может быть меньше 100.");
+                    double price;
+                    price = 10.0;
+                    if (price < 100.0) throw new Ex("Цена не может быть меньше 100.");
                     else {
-                        price = 10000000;
+                        price = 10000000.0;
                         Car broken = new Car("broken", price, new double[]{200.0, 230.0});
                         System.out.println(broken);
                     }
                 }
+                case 4 -> {
+                    ForthLab.launchIoUtilsOperations(cars);
+                }
+                case 5 -> {
+                    try {
+                        System.out.println(cars.get(5));
+                    }catch(IndexOutOfBoundsException e)
+                    {
+                        System.out.println(e.getMessage()+"  Нет машины с индексом 5");
+                    }
+
+                }
 
             }
-
 
         }
     }

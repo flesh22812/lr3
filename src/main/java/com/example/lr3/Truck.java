@@ -1,6 +1,7 @@
 package com.example.lr3;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,54 +10,40 @@ import java.util.List;
 import java.util.Objects;
 import java.util.random.RandomGenerator;
 
+
 @Setter
 @Getter
 
-public class Car implements ICar, Serializable {
+public class Truck  implements ICar, Serializable {
     String name;
     double price;
     double[] speed;
 
-    public Car(String name, double price, double[] speed) {
+    public Truck(String name, double price, double[] speed) {
         this.name = name;
         this.price = price;
         this.speed = speed;
 
     }
 
-    public Car() {
-        name = "Lada";
-        price = 700000.0;
-        speed = new double[]{120.0, 150.0};
+    public Truck() {
+        name = "Truck1";
+        price = 800000.0;
+        speed = new double[]{50.0, 100.0};
     }
 
-    public Car(int number) {
-        name = "Car" + number;
-        price = RandomGenerator.of("L64X256MixRandom").nextInt(700000, 700001);
-        speed = new double[]{120.0, 150.0};
+    public Truck(int number) {
+        name = "Truck" + number;
+        price = RandomGenerator.of("L64X256MixRandom").nextInt(600000, 700001);
+        speed = new double[]{40.0, 80.0};
     }
 
 
-    public List<Car> difPrice(List<Car> cars) {
 
-        List<Car> list= new ArrayList<>();
-        for (Car car : cars) {
-            {
-               if(Math.abs(car.price-price)==0)
-               {
-               list.add(car);
-               }
-
-            }
-        }
-
-        return list;
-      //  return Math.abs(car.getPrice() - price);
-    }
 
     @Override
     public String toString() {
-        return "Car(name= " + this.name + ", price=" + this.price + ")";
+        return "Truck(name= " + this.name + ", price=" + this.price + ")";
     }
 
     @Override
@@ -77,7 +64,12 @@ public class Car implements ICar, Serializable {
     }
 
 
+    @Override
+    public List<Car> difPrice(List<Car> cars) {
+        return null;
+    }
 
+    @Override
     public void write(Writer out) {
         PrintWriter writer = new PrintWriter(out);
         writer.printf("%s ", name);
@@ -89,7 +81,7 @@ public class Car implements ICar, Serializable {
         writer.println();
     }
 
-
+@Override
     public void output(OutputStream out) throws IOException {
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(name.length());
@@ -101,4 +93,3 @@ public class Car implements ICar, Serializable {
         }
     }
 }
-

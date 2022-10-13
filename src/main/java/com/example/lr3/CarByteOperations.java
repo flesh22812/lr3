@@ -10,20 +10,20 @@ import java.util.List;
 public class CarByteOperations {
  
 
-        public static void byteOutputCars(List<Car> cars, String fileName) throws IOException {
+        public static void byteOutputCars(List<ICar> cars, String fileName) throws IOException {
             try(FileOutputStream fos = new FileOutputStream(fileName)){
-                for( Car car: cars){
+                for( ICar car: cars){
                     CarIOUtils.outputCar(car,fos);
                 }
             }
         }
 
-        public static List<Car> byteInputCars(String fileName)
+        public static List<ICar> byteInputCars(String fileName)
                 throws IOException{
-            List<Car> cars = new ArrayList<>();
+            List<ICar> cars = new ArrayList<>();
             try(FileInputStream fis = new FileInputStream(fileName)){
                 while(fis.available() != 0){
-                    Car car = CarIOUtils.inputCar(fis);
+                    ICar car = CarIOUtils.inputCar(fis);
                     cars.add(car);
                 }
             }

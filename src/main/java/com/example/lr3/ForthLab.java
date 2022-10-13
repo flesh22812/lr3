@@ -11,7 +11,7 @@ public class ForthLab {
     private static final String BYTE_FILE_NAME = "cars.bin";
     private static final String SYMBOLIC_FILE_NAME = "cars.txt";
 
-    public static void launchIoUtilsOperations(List<Car> cars) {
+    public static void launchIoUtilsOperations(List<ICar> cars) {
         Scanner inputScanner = new Scanner(System.in);
         boolean continueIoOperations = true;
 
@@ -29,7 +29,7 @@ public class ForthLab {
                 }
                 case "2" -> {
                     try {
-                        List<Car> byteInputCars = CarByteOperations.byteInputCars(BYTE_FILE_NAME);
+                        List<ICar> byteInputCars = CarByteOperations.byteInputCars(BYTE_FILE_NAME);
                         printCarsInfo(byteInputCars);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
@@ -45,7 +45,7 @@ public class ForthLab {
                 }
                 case "4" -> {
                     try {
-                        List<Car> symbolReadCars = CarSymbolOperations.readCars(SYMBOLIC_FILE_NAME);
+                        List<ICar> symbolReadCars = CarSymbolOperations.readCars(SYMBOLIC_FILE_NAME);
                         printCarsInfo(symbolReadCars);
                     } catch (IOException ex) {
                         System.out.println(ex.getMessage());
@@ -61,7 +61,7 @@ public class ForthLab {
                 }
                 case "6" -> {
                     try {
-                        List<Car> deserializedCars = CarSerializationOperations.deserializeCars(SERIALIZED_FILE_NAME);
+                        List<ICar> deserializedCars = CarSerializationOperations.deserializeCars(SERIALIZED_FILE_NAME);
                         printCarsInfo(deserializedCars);
                     } catch (IOException | ClassNotFoundException ex) {
                         System.out.println(ex.getMessage());
@@ -88,10 +88,10 @@ public class ForthLab {
                 "\n 0 - Выход");
     }
 
-    public static void printCarsInfo(List<Car> cars) {
+    public static void printCarsInfo(List<ICar> cars) {
         try {
-            for (Car car : cars) {
-                System.out.println(car.name + ", Цена: " + car.price);
+            for (ICar car : cars) {
+                System.out.println(car.getName() + ", Цена: " + car.getPrice());
             }
         } catch (Exception ex) {
             System.out.println("Ошибка получения машины");

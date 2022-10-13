@@ -1,11 +1,10 @@
 package com.example.lr3;
 
 import java.io.*;
-import java.util.Arrays;
 
 public class CarIOUtils {
 
-    public static void outputCar(Car o, OutputStream out) throws IOException {
+    public static void outputCar(ICar o, OutputStream out) throws IOException {
         o.output(out);
     }
 
@@ -31,7 +30,7 @@ public class CarIOUtils {
 
     }
 
-    public static void writeCar(Car o, Writer out) throws IOException {
+    public static void writeCar(ICar o, Writer out) throws IOException {
         o.write(out);
     }
 
@@ -58,14 +57,14 @@ public class CarIOUtils {
 
     }
 
-    public static void serializeCar(Car o, OutputStream out) throws IOException {
+    public static void serializeCar(ICar o, OutputStream out) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(out);
         oos.writeObject(o);
     }
 
-    public static Car deserializeCar(InputStream in) throws IOException, ClassNotFoundException {
+    public static ICar deserializeCar(InputStream in) throws IOException, ClassNotFoundException {
         ObjectInputStream ois = new ObjectInputStream(in);
-        return (Car) ois.readObject();
+        return (ICar) ois.readObject();
     }
 
     private static String inputName(DataInputStream dis) throws IOException {

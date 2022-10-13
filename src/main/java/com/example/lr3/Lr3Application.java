@@ -4,7 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Scanner;
 
 
@@ -19,11 +19,14 @@ public class Lr3Application {
         System.out.println(bmw);
         System.out.println("Проверка equals 1 и 2 машин: " + bmw.equals(lada));
         System.out.println("Проверка equals 1 и 1 машин: " + lada.equals(lada));
-        System.out.println("Разность цен: " + bmw.DifPrice(lada));
+
         System.out.println("hashcode 1 машины: " + lada.hashCode());
         System.out.println("hashcode 2 машины: " + bmw.hashCode());
-        List<Car> cars = new ArrayList<>();
-
+        List<ICar> cars = new ArrayList<>();
+        ICar tr = new Truck();
+        cars.add(tr);
+        cars.add(tr);
+        cars.add(tr);
         cars.add(lada);
 
         cars.add(bmw);
@@ -48,8 +51,28 @@ public class Lr3Application {
 
                 }
                 case 2 -> {
+                    List<Car> carsType = new ArrayList<>();
+                    for (ICar iCar : cars) {
 
-                    for (Car car : cars) {
+                        if (iCar.getClass().equals(Car.class)) {//!iCar.getName().contains("Truck")) {
+                            carsType.add((Car) iCar);
+                        }
+                    }
+
+                    int j = 0;
+                    for (int i = 1; i < carsType.size(); i++) {
+
+
+                        if (!carsType.get(i).difPrice(carsType).equals(carsType.get(i - 1).difPrice(carsType))) {
+                            j++;
+                            System.out.println("Массив " + j + ": " + carsType.get(i).difPrice(carsType));
+                        }
+                    }
+                    System.out.println();
+                    System.out.println();
+                    System.out.println();
+
+                    for (ICar car : cars) {
                         System.out.println(car);
                     }
 
@@ -73,9 +96,8 @@ public class Lr3Application {
                 case 5 -> {
                     try {
                         System.out.println(cars.get(5));
-                    }catch(IndexOutOfBoundsException e)
-                    {
-                        System.out.println(e.getMessage()+"  Нет машины с индексом 5");
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println(e.getMessage() + "  Нет машины с индексом 5");
                     }
 
                 }

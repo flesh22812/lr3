@@ -1,12 +1,11 @@
 package com.example.lr3;
 
+import com.example.lr3.interfaces.ICar;
+import com.example.lr3.threads.CarIterator;
 import lombok.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.random.RandomGenerator;
 
 @Setter
@@ -27,7 +26,7 @@ public class Car implements ICar, Serializable {
     public Car() {
         name = "Lada";
         price = 700000.0;
-        speed = new double[]{120.0, 150.0};
+        speed = new double[]{120.0, 150.0, 170.0, 190.0, 200.0 ,210.0};
     }
 
     public Car(int number) {
@@ -39,19 +38,18 @@ public class Car implements ICar, Serializable {
 
     public List<Car> difPrice(List<Car> cars) {
 
-        List<Car> list= new ArrayList<>();
+        List<Car> list = new ArrayList<>();
         for (Car car : cars) {
             {
-               if(Math.abs(car.price-price)==0)
-               {
-               list.add(car);
-               }
+                if (Math.abs(car.price - price) == 0) {
+                    list.add(car);
+                }
 
             }
         }
 
         return list;
-      //  return Math.abs(car.getPrice() - price);
+        //  return Math.abs(car.getPrice() - price);
     }
 
     @Override
@@ -76,8 +74,14 @@ public class Car implements ICar, Serializable {
         return result;
     }
 
-
-
+    @Override
+    public void setSpeed(int i, double value) {
+       speed[i] = value;
+    }
+    public double getSpeed(int i) {
+        if(checkArray(i)) return speed[i];
+        return 0;
+    }
     public void write(Writer out) {
         PrintWriter writer = new PrintWriter(out);
         writer.printf("%s ", name);
@@ -89,6 +93,9 @@ public class Car implements ICar, Serializable {
         writer.println();
     }
 
+    private boolean checkArray(int index) {
+        return index >= 0 && index < speed.length;
+    }
 
     public void output(OutputStream out) throws IOException {
         DataOutputStream dos = new DataOutputStream(out);
@@ -100,5 +107,13 @@ public class Car implements ICar, Serializable {
             dos.writeDouble(speeds);
         }
     }
+
+    @Override
+    public Iterator<Double> iterator() {
+        return new CarIterator(speed);
+    }
+
+
+
 }
 

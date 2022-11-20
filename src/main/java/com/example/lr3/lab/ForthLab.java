@@ -1,4 +1,9 @@
-package com.example.lr3;
+package com.example.lr3.lab;
+
+import com.example.lr3.CarByteOperations;
+import com.example.lr3.CarSerializationOperations;
+import com.example.lr3.CarSymbolOperations;
+import com.example.lr3.interfaces.ICar;
 
 import java.io.IOException;
 import java.util.List;
@@ -66,6 +71,15 @@ public class ForthLab {
                     } catch (IOException | ClassNotFoundException ex) {
                         System.out.println(ex.getMessage());
                     }
+                }
+                case "7" -> {
+                    try {
+                        List<ICar> byteInputCars = CarByteOperations.byteInputCars(BYTE_FILE_NAME);
+                        printCarsInfo(byteInputCars);
+                    } catch (IOException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
                 }
                 case "0" -> {
                     continueIoOperations = false;

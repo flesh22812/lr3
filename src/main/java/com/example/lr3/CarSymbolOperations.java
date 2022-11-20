@@ -1,6 +1,8 @@
 package com.example.lr3;
 
 
+import com.example.lr3.interfaces.ICar;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

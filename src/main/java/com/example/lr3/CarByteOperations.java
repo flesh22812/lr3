@@ -1,5 +1,7 @@
 package com.example.lr3;
 
+import com.example.lr3.interfaces.ICar;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

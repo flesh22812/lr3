@@ -1,14 +1,30 @@
 package com.example.lr3;
 
+import com.example.lr3.factory.CarFactory;
+import com.example.lr3.factory.TruckFactory;
+import com.example.lr3.interfaces.ICar;
+import com.example.lr3.interfaces.ICarFactory;
+import com.example.lr3.threads.SyncCar;
+
 import java.io.*;
 
 public class CarIOUtils {
+    private static final ICarFactory carFactory = new CarFactory();
+    private static final ICarFactory truckFactory = new TruckFactory();
+    private static ICarFactory factory = carFactory;
+
+    public static ICar synchronizedCar(ICar car){
+        return new SyncCar(car);
+    }
+    public static void setCarFactory(ICarFactory cf) {
+        factory = cf;
+    }
 
     public static void outputCar(ICar o, OutputStream out) throws IOException {
         o.output(out);
     }
 
-    public static Car inputCar(InputStream in) throws IOException {
+    public static ICar inputCar(InputStream in) throws IOException {
         DataInputStream dis = new DataInputStream(in);
 
         String name = inputName(dis);
@@ -20,9 +36,11 @@ public class CarIOUtils {
             speed[i] = dis.readDouble();
         }
         try {
-
-            return new Car(name, price, speed);
-
+            if (price > 100000) {
+             setCarFactory(carFactory);
+            }else {setCarFactory(truckFactory);
+            }
+            return factory.createInstance(name, speed, price);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -35,7 +53,7 @@ public class CarIOUtils {
     }
 
 
-    public static Car readCar(Reader in) throws IOException, Ex {
+    public static ICar readCar(Reader in) throws IOException, Ex {
         BufferedReader reader = (BufferedReader) in;
         String lineFromFile = reader.readLine();
         if (lineFromFile == null) throw new Ex(Ex.CORRECT_DATA);
@@ -50,10 +68,11 @@ public class CarIOUtils {
         for (int i = 0; i < arrSize; i++) {
             speed[i] = Double.parseDouble(tokens[i + 2]);
         }
-
-
-        return new Car(name, price, speed);
-
+        if (price > 100000) {
+            setCarFactory(carFactory);
+        }else {setCarFactory(truckFactory);
+        }
+        return factory.createInstance(name, speed, price);
 
     }
 

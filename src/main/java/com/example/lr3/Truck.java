@@ -1,20 +1,18 @@
 package com.example.lr3;
 
+import com.example.lr3.interfaces.ICar;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.random.RandomGenerator;
 
 
 @Setter
 @Getter
 
-public class Truck  implements ICar, Serializable {
+public class Truck implements ICar, Serializable {
     String name;
     double price;
     double[] speed;
@@ -39,8 +37,6 @@ public class Truck  implements ICar, Serializable {
     }
 
 
-
-
     @Override
     public String toString() {
         return "Truck(name= " + this.name + ", price=" + this.price + ")";
@@ -63,6 +59,9 @@ public class Truck  implements ICar, Serializable {
         return result;
     }
 
+    private boolean checkArray(int index) {
+        return index >= 0 && index < speed.length;
+    }
 
     @Override
     public List<Car> difPrice(List<Car> cars) {
@@ -81,7 +80,7 @@ public class Truck  implements ICar, Serializable {
         writer.println();
     }
 
-@Override
+    @Override
     public void output(OutputStream out) throws IOException {
         DataOutputStream dos = new DataOutputStream(out);
         dos.writeInt(name.length());
@@ -91,5 +90,20 @@ public class Truck  implements ICar, Serializable {
         for (double speeds : speed) {
             dos.writeDouble(speeds);
         }
+    }
+
+    @Override
+    public void setSpeed(int i, double value) {
+        if (checkArray(i)) speed[i] = value;
+    }
+
+    @Override
+    public double getSpeed(int index) {
+        return speed[index];
+    }
+
+    @Override
+    public Iterator<Double> iterator() {
+        return null;
     }
 }

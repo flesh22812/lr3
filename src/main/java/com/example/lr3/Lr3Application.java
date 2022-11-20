@@ -1,11 +1,15 @@
 package com.example.lr3;
 
+import com.example.lr3.interfaces.ICar;
+import com.example.lr3.lab.ForthLab;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
+
+import static com.example.lr3.lab.FifthLab.launchThreadOperations;
+import static com.example.lr3.lab.SixthLab.launchPatternOperations;
 
 
 @SpringBootApplication
@@ -40,7 +44,9 @@ public class Lr3Application {
                     2.Вывести список машин
                     3.Сломать программу
                     4.4 ЛР
-                    5.Сломать программу2
+                    8.Сломать программу2
+                    5.5 ЛР
+                    6.6 ЛР
                     9.Завершение работы""");
             num = in.nextInt();
             switch (num) {
@@ -93,7 +99,7 @@ public class Lr3Application {
                 case 4 -> {
                     ForthLab.launchIoUtilsOperations(cars);
                 }
-                case 5 -> {
+                case 8 -> {
                     try {
                         System.out.println(cars.get(5));
                     } catch (IndexOutOfBoundsException e) {
@@ -101,7 +107,12 @@ public class Lr3Application {
                     }
 
                 }
-
+                case 5 -> {
+                    launchThreadOperations();
+                }
+                case 6 -> {
+                    launchPatternOperations();
+                }
             }
 
         }
